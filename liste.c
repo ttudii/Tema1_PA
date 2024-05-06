@@ -55,6 +55,86 @@ void printTeams(Node** Node,FILE *f,char file[], int number){
 	
 }
 
+float pointsCalculator(Node *node){
+	
+	float points=0;
+	int i=0;
+
+	while(i<node->team.players){
+		points+=(float)node->team.player[i].points;
+		i++;
+	}
+
+	points=points/(float)node->team.players;
+
+	return points;
+
+}
+
+float lowestPoints(Node* head){
+
+	Node *headcopy=head;
+
+	float points;
+
+	float temp = __INT_MAX__;
+
+	while(headcopy!=NULL){
+
+		points = pointsCalculator(headcopy);
+
+		if(points<temp) temp=points;
+		headcopy=headcopy->next;
+	}
+
+	return temp;
+
+}
+
+void eliminateTeam(Node **head, float aux){	
+
+	if (*head==NULL) return; 
+
+	Node* headcopy = *head;
+
+	if (pointsCalculator(headcopy)==aux){
+		*head = (*head)->next;
+		free(headcopy);
+		return; 
+	}
+
+	Node *prev = *head;
+
+	while (headcopy!=NULL){
+		if(pointsCalculator(headcopy->next)!=aux){
+			headcopy = headcopy->next;
+		}else{
+			Node *found=headcopy->next;
+			headcopy->next= headcopy->next->next;
+			free(found); 
+			return; 
+		} 
+
+	}
+
+}
+
+
+bool twoPower(int number){
+
+	if(number == 0) return 0;
+	else
+	{
+		while(number!=1){
+			if(number%2==0) number/=2;
+			else
+			return 0;
+		}
+	}
+
+	if(number==1) return 1;
+
+}
 
 void addAtEnd(Node** head, Team data){
 	Node *aux = *head;

@@ -18,12 +18,31 @@ int cerinta_1(Node **head, FILE *f1,FILE *f2,char file1[],char file2[]){
 
     fclose(f1);
 
-    Node* headcopy=*head;
+    Node* headcopy = *head;
 
     printTeams(&headcopy,f2,file2,nr_teams);
 
     return nr_teams;
     
+}
+
+void cerinta_2(Node **head,FILE *f,char file[],int *numberofTeams){
+
+    //raman n echipe, n maxim si n putere a lui 2
+    //daca doua echipe au acelasi punctaj se elimina  prima echipa gasita in lista
+
+    float minimum_points;
+
+    while(twoPower(*numberofTeams)==0){
+
+        minimum_points=lowestPoints(*head);//cauta echipa cu cel mai mic punctaj din cele ramase
+        eliminateTeam(head,minimum_points); //return la numarul de echipe ramase dupa eliminare
+        *numberofTeams=*numberofTeams-1;
+        
+    }
+
+    printTeams(head,f,file,*numberofTeams); //afisarea listei noi in fisierul out
+
 }
 
 int* readRequirement(FILE *f,char file[]){
@@ -52,18 +71,26 @@ int* readRequirement(FILE *f,char file[]){
 
 int main(int argc,char *argv[]){
 
+    //declarari
+
     FILE *f1,*f2,*f3;
 
-    Node *head=(Node*)malloc(sizeof(Node));
+    Node* head=(Node*)malloc(sizeof(Node));
 
+    int numberofTeams;
+
+    //extragerea datelor din fisierul c.in
     int *requirement = (int*)malloc(sizeof(int)*5);
 
     requirement=readRequirement(f1,argv[1]);
 
-    int numberofTeams;
-
     //cerinta 1
     if(requirement[0]==1) numberofTeams = cerinta_1(&head,f2,f3,argv[2],argv[3]);
+
+    //cerinta 2
+
+    if(requirement[1]==1) cerinta_2(&head,f3,argv[3],&numberofTeams);
+
 
     return 0;
 }
