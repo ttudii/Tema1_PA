@@ -1,4 +1,6 @@
 #include "liste.c"
+#include "stive.c"
+#include "cozi.c"
 
 int cerinta_1(Node **head, FILE *f1,FILE *f2,char file1[],char file2[]){
 
@@ -7,13 +9,22 @@ int cerinta_1(Node **head, FILE *f1,FILE *f2,char file1[],char file2[]){
         exit(1);
     }
 
+//functi pt stergerea ultimului spatiu si citire echipe pana cand este egal cu numarul de echipe citit initial
+
     int nr_teams;
     fscanf(f1,"%d",&nr_teams);
 
-    while(!feof(f1)){
-        Team temp=addPlayers(f1);
+    int i=0;
+
+    while(i<nr_teams){
+
+        Team temp = addPlayers(f1);
+
         if(feof(f1)) break;
+
         addAtBeginning(head,temp);
+
+        i++;
     }
 
     fclose(f1);
@@ -33,7 +44,15 @@ void cerinta_2(Node **head,FILE *f,char file[],int *numberofTeams){
 
     float minimum_points;
 
-    while(twoPower(*numberofTeams)==0){
+    Node *aux = *head;
+
+    while(aux->next!=NULL){
+        pointsCalculator(&aux);
+        aux=aux->next;
+
+    }
+
+    while(twoPower(*numberofTeams) == 0){
 
         minimum_points=lowestPoints(*head);//cauta echipa cu cel mai mic punctaj din cele ramase
         eliminateTeam(head,minimum_points); //return la numarul de echipe ramase dupa eliminare
@@ -41,7 +60,73 @@ void cerinta_2(Node **head,FILE *f,char file[],int *numberofTeams){
         
     }
 
-    printTeams(head,f,file,*numberofTeams); //afisarea listei noi in fisierul out
+    Node* headcopy = *head;
+
+    printTeams(&headcopy,f,file,*numberofTeams); //afisarea listei noi in fisierul out
+
+}
+
+void cerinta_3(Node **head, Queue **q,Node** topWinners,Node** topLosers,Node** newList, int *numberofTeams,FILE *f, char file[]){
+
+    //problema print castigator
+    //problema alegere castigator meci la punctaj egal
+
+    Node *headcopy=*head;
+
+    while(headcopy->next!=NULL){
+        enQueue(*q,&headcopy);
+        headcopy=headcopy->next;
+    }
+
+    int rounds=0;
+
+    rounds++;
+    printMatches(*q,f,file,rounds);
+
+    while(*numberofTeams!=2){
+
+        //populare dintr-o singura functie?
+        addTeams(*q,topWinners,topLosers);
+        
+        //coada goala dupa adaugare in stive
+        Node *stackCopy=*topWinners;
+
+        printStack(stackCopy,f,file,rounds);
+
+        deleteStack(topLosers);
+
+        if(queueEmpty(*q)) (*q)->rear=NULL;
+
+        if(*numberofTeams==8){
+
+            stackCopy=*topWinners;
+
+            while(stackCopy->next!=NULL){
+                addAtBeginning(newList,stackCopy->team);
+                stackCopy=stackCopy->next;
+            }
+
+        }
+
+
+        while(!stackEmpty(*topWinners)){
+            enQueue(*q,topWinners);
+            pop(topWinners);
+        }
+
+        *numberofTeams=*numberofTeams/2;
+
+        rounds++;
+
+        printMatches(*q,f,file,rounds);
+
+    }
+
+    addTeams(*q,topWinners,topLosers);
+
+    Node*stackCopy=*topWinners;
+
+    printStack(stackCopy,f,file,rounds);
 
 }
 
@@ -77,6 +162,12 @@ int main(int argc,char *argv[]){
 
     Node* head=(Node*)malloc(sizeof(Node));
 
+    Node* topWinners=NULL;
+    Node* topLosers=NULL;
+    Node* newList=(Node*)malloc(sizeof(Node));
+
+    Queue *q=createQueue();
+
     int numberofTeams;
 
     //extragerea datelor din fisierul c.in
@@ -88,8 +179,10 @@ int main(int argc,char *argv[]){
     if(requirement[0]==1) numberofTeams = cerinta_1(&head,f2,f3,argv[2],argv[3]);
 
     //cerinta 2
-
     if(requirement[1]==1) cerinta_2(&head,f3,argv[3],&numberofTeams);
+
+    //cerinta 3
+    if(requirement[2]==1) cerinta_3(&head,&q,&topWinners,&topLosers,&newList,&numberofTeams,f3,argv[3]);
 
 
     return 0;

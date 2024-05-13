@@ -1,4 +1,4 @@
-#include "liste.h"
+#include "team.h"
 
 
 void addAtBeginning(Node **head, Team data){
@@ -18,6 +18,12 @@ Team addPlayers(FILE *f2){
 	char car;
 	
 	fscanf(f2,"%d%c%[^\n]\n",&temp.players,&car,temp.team_name);
+
+
+	if(*(temp.team_name+strlen(temp.team_name)-2)==' ') 
+		*(temp.team_name+strlen(temp.team_name)-2)='\0';
+	else
+		*(temp.team_name+strlen(temp.team_name)-1)='\0';
 
     int j=0;
 
@@ -55,35 +61,27 @@ void printTeams(Node** Node,FILE *f,char file[], int number){
 	
 }
 
-float pointsCalculator(Node *node){
-	
-	float points=0;
+void pointsCalculator(Node **node){
+
 	int i=0;
 
-	while(i<node->team.players){
-		points+=(float)node->team.player[i].points;
+	while(i<(*node)->team.players){
+		(*node)->team.points+=(float)(*node)->team.player[i].points;
 		i++;
 	}
 
-	points=points/(float)node->team.players;
-
-	return points;
-
+	(*node)->team.points=(*node)->team.points/(float)(*node)->team.players;
 }
 
 float lowestPoints(Node* head){
 
 	Node *headcopy=head;
 
-	float points;
-
 	float temp = __INT_MAX__;
 
-	while(headcopy!=NULL){
+	while(headcopy->next!=NULL){
 
-		points = pointsCalculator(headcopy);
-
-		if(points<temp) temp=points;
+		if(headcopy->team.points < temp) temp=headcopy->team.points;
 		headcopy=headcopy->next;
 	}
 
@@ -97,26 +95,26 @@ void eliminateTeam(Node **head, float aux){
 
 	Node* headcopy = *head;
 
-	if (pointsCalculator(headcopy)==aux){
+	if (headcopy->team.points == aux){
+		
 		*head = (*head)->next;
 		free(headcopy);
 		return; 
 	}
 
-	Node *prev = *head;
-
-	while (headcopy!=NULL){
-		if(pointsCalculator(headcopy->next)!=aux){
-			headcopy = headcopy->next;
-		}else{
-			Node *found=headcopy->next;
-			headcopy->next= headcopy->next->next;
-			free(found); 
-			return; 
-		} 
-
-	}
-
+	Node * prev = * head ; // predecesorul elementului cautat
+		while ( headcopy != NULL ){
+			if ( headcopy->team.points != aux ){
+				prev = headcopy ;
+				headcopy = headcopy->next ;
+			}
+			else{
+				prev->next = headcopy->next ;
+				free ( headcopy ); // sterge elementul
+				return ;
+			}
+		}
+		
 }
 
 
@@ -136,11 +134,12 @@ bool twoPower(int number){
 
 }
 
-void addAtEnd(Node** head, Team data){
+/*
+void addAtEnd(Node** head, Team team){
 	Node *aux = *head;
 	Node *newNode = (Node*)malloc(sizeof(Node)); 
-	newNode->team= data; 
-	if (*head == NULL) addAtBeginning(head, data);
+	newNode->team= team; 
+	if (*head == NULL) addAtBeginning(head, team);
 	else{ 
 		while (aux->next!=NULL) 
 			aux = aux->next;
@@ -148,4 +147,4 @@ void addAtEnd(Node** head, Team data){
 		newNode->next = NULL; 
 	}
 }
-
+*/
