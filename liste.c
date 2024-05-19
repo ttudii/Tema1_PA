@@ -45,7 +45,7 @@ Team addPlayers(FILE *f2){
 
 }
 
-void printTeams(Node** Node,FILE *f,char file[], int number){
+void printTeams(Node** Node,FILE *f,char file[]){
 
 	if((f=fopen(file,"wt"))==NULL){
         fprintf(stdout,"Error opening file!\n");

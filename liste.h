@@ -2,7 +2,7 @@
 
 void addAtBeginning(Node **head, Team data);
 Team addPlayers(FILE *f2);
-void printTeams(Node** Node,FILE *f,char file[], int number);
+void printTeams(Node** Node,FILE *f,char file[]);
 void pointsCalculator(Node **node);
 float lowestPoints(Node* head);
 void eliminateTeam(Node **head, float aux);

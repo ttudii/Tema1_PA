@@ -1,6 +1,7 @@
 #include "liste.c"
 #include "stive.c"
 #include "cozi.c"
+#include "arbori.c"
 
 int cerinta_1(Node **head, FILE *f1,FILE *f2,char file1[],char file2[]){
 
@@ -31,7 +32,7 @@ int cerinta_1(Node **head, FILE *f1,FILE *f2,char file1[],char file2[]){
 
     Node* headcopy = *head;
 
-    printTeams(&headcopy,f2,file2,nr_teams);
+    printTeams(&headcopy,f2,file2);
 
     return nr_teams;
     
@@ -62,7 +63,7 @@ void cerinta_2(Node **head,FILE *f,char file[],int *numberofTeams){
 
     Node* headcopy = *head;
 
-    printTeams(&headcopy,f,file,*numberofTeams); //afisarea listei noi in fisierul out
+    printTeams(&headcopy,f,file); //afisarea listei noi in fisierul out
 
 }
 
@@ -95,13 +96,15 @@ void cerinta_3(Node **head, Queue **q,Node** topWinners,Node** topLosers,Node** 
 
         deleteStack(topLosers);
 
+        *numberofTeams=*numberofTeams/2;
+
         if(queueEmpty(*q)) (*q)->rear=NULL;
 
         if(*numberofTeams==8){
 
             stackCopy=*topWinners;
 
-            while(stackCopy->next!=NULL){
+            while(stackCopy!=NULL){
                 addAtBeginning(newList,stackCopy->team);
                 stackCopy=stackCopy->next;
             }
@@ -114,8 +117,6 @@ void cerinta_3(Node **head, Queue **q,Node** topWinners,Node** topLosers,Node** 
             pop(topWinners);
         }
 
-        *numberofTeams=*numberofTeams/2;
-
         rounds++;
 
         printMatches(*q,f,file,rounds);
@@ -127,6 +128,26 @@ void cerinta_3(Node **head, Queue **q,Node** topWinners,Node** topLosers,Node** 
     Node*stackCopy=*topWinners;
 
     printStack(stackCopy,f,file,rounds);
+
+}
+
+void cerinta_4(Node *newList,NodeBST *root,FILE *f,char file[]){
+
+    while(newList->next!=NULL){
+        root=insert(root,newList->team);
+        newList=newList->next;
+    }
+
+    if((f=fopen(file,"at"))==NULL){
+        fprintf(f,"Error opening file!\n");
+        exit(1);
+    }
+
+    fprintf(f,"\nTOP 8 TEAMS:\n");
+
+    ReverseInorder(root,f,file);
+
+    fclose(f);
 
 }
 
@@ -165,6 +186,7 @@ int main(int argc,char *argv[]){
     Node* topWinners=NULL;
     Node* topLosers=NULL;
     Node* newList=(Node*)malloc(sizeof(Node));
+    NodeBST* root=NULL;
 
     Queue *q=createQueue();
 
@@ -184,6 +206,8 @@ int main(int argc,char *argv[]){
     //cerinta 3
     if(requirement[2]==1) cerinta_3(&head,&q,&topWinners,&topLosers,&newList,&numberofTeams,f3,argv[3]);
 
+    //cerinta 4
+    if(requirement[3]==1) cerinta_4(newList,root,f3,argv[3]);
 
     return 0;
 }
