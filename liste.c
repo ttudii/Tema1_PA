@@ -134,17 +134,22 @@ bool twoPower(int number){
 
 }
 
-/*
+
 void addAtEnd(Node** head, Team team){
+
 	Node *aux = *head;
+
 	Node *newNode = (Node*)malloc(sizeof(Node)); 
 	newNode->team= team; 
+
 	if (*head == NULL) addAtBeginning(head, team);
+	
 	else{ 
-		while (aux->next!=NULL) 
-			aux = aux->next;
+	
+		while (aux->next!=NULL) aux = aux->next;
+		
 		aux->next = newNode;
 		newNode->next = NULL; 
 	}
 }
-*/
+

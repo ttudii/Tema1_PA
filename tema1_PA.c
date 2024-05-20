@@ -105,6 +105,7 @@ void cerinta_3(Node **head, Queue **q,Node** topWinners,Node** topLosers,Node** 
             stackCopy=*topWinners;
 
             while(stackCopy!=NULL){
+
                 addAtBeginning(newList,stackCopy->team);
                 stackCopy=stackCopy->next;
             }
@@ -131,11 +132,13 @@ void cerinta_3(Node **head, Queue **q,Node** topWinners,Node** topLosers,Node** 
 
 }
 
-void cerinta_4(Node *newList,NodeBST *root,FILE *f,char file[]){
+void cerinta_4(Node *newList,NodeBST *root,FILE *f,char file[],Node **listAVL){
 
-    while(newList->next!=NULL){
-        root=insert(root,newList->team);
-        newList=newList->next;
+    Node *headcopy=newList;
+
+    while(headcopy->next!=NULL){
+        root=insertBST(root,headcopy->team);
+        headcopy=headcopy->next;
     }
 
     if((f=fopen(file,"at"))==NULL){
@@ -144,8 +147,32 @@ void cerinta_4(Node *newList,NodeBST *root,FILE *f,char file[]){
     }
 
     fprintf(f,"\nTOP 8 TEAMS:\n");
+    
+    //am duplicate
+    ReverseInorder(root,f,listAVL);
 
-    ReverseInorder(root,f,file);
+    //trebuie in plus adaugat ultimul (functie de adaugare)
+    addAtEnd(listAVL,root->team);
+
+    fclose(f);
+
+}
+
+void cerinta_5(Node *listAVL,NodeAVL *Root,FILE *f,char file[]){
+
+    while(listAVL->next!=NULL){
+        Root=insertAVL(Root,listAVL->team);
+        listAVL=listAVL->next;
+    }
+
+    if((f=fopen(file,"at"))==NULL){
+        fprintf(f,"Error opening file!\n");
+        exit(1);
+    }
+
+    fprintf(f,"\nTHE LEVEL 2 TEAMS ARE: \n");
+
+    printLevel(Root,3,f);
 
     fclose(f);
 
@@ -187,6 +214,8 @@ int main(int argc,char *argv[]){
     Node* topLosers=NULL;
     Node* newList=(Node*)malloc(sizeof(Node));
     NodeBST* root=NULL;
+    Node* listAVL=NULL;
+    NodeAVL* Root=NULL; 
 
     Queue *q=createQueue();
 
@@ -207,7 +236,11 @@ int main(int argc,char *argv[]){
     if(requirement[2]==1) cerinta_3(&head,&q,&topWinners,&topLosers,&newList,&numberofTeams,f3,argv[3]);
 
     //cerinta 4
-    if(requirement[3]==1) cerinta_4(newList,root,f3,argv[3]);
+    if(requirement[3]==1) cerinta_4(newList,root,f3,argv[3],&listAVL);
+
+    //cerinta 5
+    if(requirement[4]==1) cerinta_5(listAVL,Root,f3,argv[3]);
+
 
     return 0;
 }
