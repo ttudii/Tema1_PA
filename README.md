@@ -1,8 +1,8 @@
 # Tema1_PA
 
-  Prima tema din cadrul cursului de Proiectarea Algoritmilor a avut in vedere implementarea notiunilor studiate in prima parte a cursului, anunme liste, stive, cozi, arbori (binari de cautare, AVL) pentru aprofundarea notiunilor si intelegerea principiilor de funtionare. Tema este compusa din cinci task-uri si a fost realizata integral folosind limbajul C. Programul simuleaza desfasurarea unui concurs de League of Legends desfasurat in cadrul evenimentului Lan Party organizat de Facultatea de Automatica si Calculatoare.
+  Prima tema din cadrul cursului de Proiectarea Algoritmilor a avut in vedere implementarea notiunilor studiate in prima parte a cursului, anume liste, stive, cozi, arbori (binari de cautare, AVL) pentru aprofundarea notiunilor si intelegerea principiilor de funtionare. Tema este compusa din cinci task-uri si a fost realizata integral folosind limbajul C. Programul simuleaza desfasurarea unui concurs de League of Legends desfasurat in cadrul evenimentului Lan Party organizat de Facultatea de Automatica si Calculatoare.
   
-  Datele de intrare sunt continute in 15 foldere, cu cate doua fisiere denumite c.in, respectiv d.in. Primul fisier contine 5 valori de 0 sau 1, indicand care din cele 5 task-uri vor fi aplicate asupra datelor de intrare (pentru primele 3 fisiere se va executa doar primul task, pentru urmatoarele 3 fisiere primele 2 task-uri etc.). Fisierul d.in contine date de intrare reprezentand echipele participante. Prelucrarile asupra datelor (rezolvarea task-urilor) vor fi afisate intr-un r.out.
+  Datele de intrare sunt continute in 15 foldere, cu cate doua fisiere denumite c.in, respectiv d.in. Primul fisier contine 5 valori de 0 sau 1, indicand care din cele 5 task-uri vor fi aplicate asupra datelor de intrare (pentru primele 3 fisiere se va executa doar primul task, pentru urmatoarele 3 fisiere primele 2 task-uri etc.). Fisierul d.in contine date de intrare reprezentand echipele participante. Prelucrarile asupra datelor (rezolvarea task-urilor) vor fi afisate intr-un fisier r.out.
 
   Verificarea rezultatelor se realizeaza cu ajutorul unui checker care, folosind executabilul programului, denumit lanParty, si un fisier Makefile, compara rezultatele obtinute cu un set de fisiere care contin ceea ce ar trebui sa se obtina daca rezolvarea a fost corecta.
 
@@ -44,7 +44,7 @@
 
 #Task 4
 
-  Al patrulea task foloseste o lista formata din ultimele 8 echipe ramase in competitie (lista trebuie creata la task-ul anterior, insa este folosita in cadrul task-ului 4) pentru a crea un arbore binar de cautare ordonat in functie de punctaj (in cazul punctajelor egale, ordonarea se va face descresctor, in functie de nume). Nodurile arborelui vor fi introduse in fisier folosind o parcurgere in inordine inversa si vor fi retinute intr-o noua structura de tip lista.
+  Al patrulea task foloseste o lista formata din ultimele 8 echipe ramase in competitie (lista trebuie creata la task-ul anterior, insa este folosita in cadrul acestui task) pentru a crea un arbore binar de cautare ordonat in functie de punctaj (in cazul punctajelor egale, ordonarea se va face descresctor, in functie de nume). Nodurile arborelui vor fi introduse in fisier folosind o parcurgere in inordine inversa si vor fi retinute intr-o noua structura de tip lista.
 
 #Task 5
 
