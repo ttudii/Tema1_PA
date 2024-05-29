@@ -28,25 +28,25 @@
     Ciobanu Ionut 1
 
 
-# Task 1
+## Task 1
 
   Primul task presupune citirea echipelor din fisierul d.in si adaugarea acestora intr-o lista, la inceputul acesteiea, complexitatea fiind O(1). Din lista astfel creata, vor fi afisate numele echipelor in ordinea aparitiei.
 
-# Task 2
+## Task 2
 
   Al doilea task presupune eliminarea din lista creata la task-ul 1 a unui numar de echipe, pana se ajunge la un numar de echipe care reprezinta o putere a lui 2, cea mai mare posibila. De fiecare data se elimina echipa cu punctajul cel mai mic, iar in cazul in care doua echipe au punctaj egal, se elimina prima gasita in lista. Punctajul reprezinta media aritmetica a punctajelor fiecarui jucator din cadrul echipei.
 
-# Task 3
+## Task 3
 
   In al treilea task, este implementata o coada de meciuri (meci - structura formata din doua echipe, introduse in ordinea aparitiei in lista). Echipa cu punctaj mai mare este adaugata intr-o stiva a castigatorilor, iar cealalta intr-o stiva a pierzatorilor. In cazul in care doua echipe au acelasi punctaj, va castiga prima introdusa in coada de meciuri. Castigatorii vor forma o noua coada de meciuri, algoritmul repetandu-se pana la aflarea castigatorului. 
 
   Mentionez ca echipa castigatoare isi va mari punctajul cu un punct pentru fiecare meci castigat, iar echipa pierzatoare nu isi va modifica punctajul.
 
-# Task 4
+## Task 4
 
   Al patrulea task foloseste o lista formata din ultimele 8 echipe ramase in competitie (lista trebuie creata la task-ul anterior, insa este folosita in cadrul acestui task) pentru a crea un arbore binar de cautare ordonat in functie de punctaj (in cazul punctajelor egale, ordonarea se va face descresctor, in functie de nume). Nodurile arborelui vor fi introduse in fisier folosind o parcurgere in inordine inversa si vor fi retinute intr-o noua structura de tip lista.
 
-# Task 5
+## Task 5
 
   In task-ul 5 se realizeaza un arbore AVL folosind lista de la task-ul anterior si se va afisa continutul nivelului 2 in fisierul de iesire.
   
