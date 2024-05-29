@@ -84,6 +84,8 @@ void printMatches(Queue *q,FILE *f,char file[],int index){
 		node=node->next;
 	}	
 
+	free(node);
+
 	fclose(f);
 
 }

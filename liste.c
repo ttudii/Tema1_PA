@@ -1,5 +1,17 @@
 #include "team.h"
 
+void freeNode(Node* node){
+
+	//free(node->team.team_name); problema la eliberare de memorie
+
+	for(int i=0;i<node->team.players;i++){
+		free(node->team.player[i].firstname);
+		free(node->team.player[i].secondname);
+	}
+	free(node->team.player);
+	free(node);
+
+}
 
 void addAtBeginning(Node **head, Team data){
 
@@ -7,6 +19,7 @@ void addAtBeginning(Node **head, Team data){
 	newNode->team = data;
 	newNode->next = *head;
 	*head = newNode;
+
 }
 
 Team addPlayers(FILE *f2){
@@ -89,6 +102,18 @@ float lowestPoints(Node* head){
 
 }
 
+void deleteList(Node** head){
+
+	Node  *temp;
+	while ((*head)!=NULL){ // !isEmpty(*top)
+		temp=*head;
+		*head=(*head)->next;
+		freeNode(temp);
+	}
+}	
+
+
+
 void eliminateTeam(Node **head, float aux){	
 
 	if (*head==NULL) return; 
@@ -110,13 +135,12 @@ void eliminateTeam(Node **head, float aux){
 			}
 			else{
 				prev->next = headcopy->next ;
-				free ( headcopy ); // sterge elementul
+				free(headcopy); // sterge elementul
 				return ;
 			}
 		}
 		
 }
-
 
 bool twoPower(int number){
 
@@ -152,4 +176,5 @@ void addAtEnd(Node** head, Team team){
 		newNode->next = NULL; 
 	}
 }
+
 

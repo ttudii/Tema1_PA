@@ -1,5 +1,6 @@
 #include "team.h"
 
+void freeNode(Node* node);
 void addAtBeginning(Node **head, Team data);
 Team addPlayers(FILE *f2);
 void printTeams(Node** Node,FILE *f,char file[]);

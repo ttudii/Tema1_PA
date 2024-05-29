@@ -34,6 +34,7 @@ void push(Node**top, Team data) {
 
 }
 
+
 void deleteStack(Node**top){
 	Node  *temp;
 	while ((*top)!=NULL){ // !isEmpty(*top)
