@@ -38,7 +38,9 @@
 
 #Task 3
 
-  In al treilea task, este implementata o coada de meciuri (meci - structura formata din doua echipe, introduse in ordinea aparitiei in lista). Echipa cu punctaj mai mare este adaugata intr-o stiva a castigatorilor, iar cealalta intr-o stiva a pierzatorilor. In cazul in care doua echipe au acelasi punctaj, va castiga prima introdusa in coada de meciuri. Castigatorii vor forma o noua coada de meciuri, algoritmul repetandu-se pana la aflarea castigatorului.
+  In al treilea task, este implementata o coada de meciuri (meci - structura formata din doua echipe, introduse in ordinea aparitiei in lista). Echipa cu punctaj mai mare este adaugata intr-o stiva a castigatorilor, iar cealalta intr-o stiva a pierzatorilor. In cazul in care doua echipe au acelasi punctaj, va castiga prima introdusa in coada de meciuri. Castigatorii vor forma o noua coada de meciuri, algoritmul repetandu-se pana la aflarea castigatorului. 
+
+  Mentionez ca echipa castigatoare isi va mari punctajul cu un punct pentru fiecare meci castigat, iar echipa pierzatoare nu isi va modifica punctajul.
 
 #Task 4
 
